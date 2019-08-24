@@ -54,5 +54,7 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
 
+    implementation 'com.google.android.gms:play-services-ads:18.1.1'
+
 
 }

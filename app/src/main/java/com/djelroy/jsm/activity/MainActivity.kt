@@ -13,7 +13,15 @@ import com.djelroy.jsm.R
 import com.djelroy.jsm.data.Application
 import com.djelroy.jsm.view.application.ApplicationListAdapter
 import com.djelroy.jsm.view.application.ApplicationViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewAdapter: ApplicationListAdapter
     private lateinit var applicationViewModel: ApplicationViewModel
     private lateinit var fab: FloatingActionButton
+    private lateinit var adView: AdView
 
     companion object {
         const val newApplicationActivityRequestCode = 1
@@ -30,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        initMobileAds();
 
         viewLayoutManager = LinearLayoutManager(this)
         viewAdapter = ApplicationListAdapter(this)
@@ -50,6 +61,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, NewApplicationActivity::class.java)
             startActivityForResult(intent, newApplicationActivityRequestCode)
         }
+    }
+
+    fun initMobileAds(){
+        MobileAds.initialize(this) {}
+        adView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
